@@ -1,0 +1,2 @@
+key,subject,shape,split
+sub-01_ses-1_task-motor_run-1_bold.nii,sub-01,64;64;39;300,train
