@@ -41,6 +41,7 @@ def main():
             clean = clean.permute(0, 2, 1, 3, 4, 5)  # -> [B, 16, 1, Z, Y, X]
             pred = model(noisy)              # [B, 16, 1, Z, Y, X]
             pred = pred.permute(0, 2, 1, 3, 4, 5)   # -> [B, 1, 16, Z, Y, X]
+            print("pred", pred.shape, "clean", clean.shape)
             loss  = loss_fn(pred, clean)
             optimizer.zero_grad(); loss.backward(); optimizer.step()
             train_losses.append(loss.item())
@@ -56,6 +57,7 @@ def main():
                 clean = clean.permute(0, 2, 1, 3, 4, 5)  # -> [B, 16, 1, Z, Y, X]
                 pred  = model(noisy)
                 pred  = pred.permute(0, 2, 1, 3, 4, 5)
+                print("pred", pred.shape, "clean", clean.shape)
                 val_losses.append(loss_fn(pred, clean).item())
         avg_val = sum(val_losses)/len(val_losses)
 
