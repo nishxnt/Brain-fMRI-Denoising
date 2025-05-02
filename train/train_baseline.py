@@ -23,7 +23,7 @@ def main():
 
     # Model, loss, optimizer
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = UNet3D().to(device)
+    model = UNet3D(in_ch=16, out_ch=16, features=16).to(device)
     loss_fn = nn.MSELoss()
     optimizer = optim.AdamW(model.parameters(), lr=1e-4)
 
@@ -38,7 +38,8 @@ def main():
         for batch in train_loader:
             noisy = batch["noisy"].to(device)
             clean = batch["clean"].to(device)
-            pred  = model(noisy)
+            pred = model(noisy)              # [B, 16, 1, Z, Y, X]
+            pred = pred.permute(0, 2, 1, 3, 4, 5)   # -> [B, 1, 16, Z, Y, X]
             loss  = loss_fn(pred, clean)
             optimizer.zero_grad(); loss.backward(); optimizer.step()
             train_losses.append(loss.item())
