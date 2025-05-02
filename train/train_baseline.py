@@ -38,6 +38,7 @@ def main():
         for batch in train_loader:
             noisy = batch["noisy"].to(device)
             clean = batch["clean"].to(device)
+            clean = clean.permute(0, 2, 1, 3, 4, 5)  # -> [B, 16, 1, Z, Y, X]
             pred = model(noisy)              # [B, 16, 1, Z, Y, X]
             pred = pred.permute(0, 2, 1, 3, 4, 5)   # -> [B, 1, 16, Z, Y, X]
             loss  = loss_fn(pred, clean)
@@ -52,7 +53,9 @@ def main():
             for batch in val_loader:
                 noisy = batch["noisy"].to(device)
                 clean = batch["clean"].to(device)
+                clean = clean.permute(0, 2, 1, 3, 4, 5)  # -> [B, 16, 1, Z, Y, X]
                 pred  = model(noisy)
+                pred  = pred.permute(0, 2, 1, 3, 4, 5)
                 val_losses.append(loss_fn(pred, clean).item())
         avg_val = sum(val_losses)/len(val_losses)
 
