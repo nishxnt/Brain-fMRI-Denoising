@@ -1,0 +1,17 @@
+name: kimfmri
+channels:
+  - defaults
+dependencies:
+  - zarr
+  - numcodecs
+  - pandas=2.2
+  - nibabel
+  - cpuonly
+  - numpy=1.26
+  - pytorch
+  - torchvision
+  - python=3.11
+  - tqdm
+  - tensorboard
+  - torchmetrics
+prefix: C:\Users\Nishant Gupta\anaconda3\envs\kimfmri
