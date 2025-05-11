@@ -1,0 +1,25 @@
+seed: 42
+
+train:
+  epochs: 30
+  batch_size: 4
+  patience: 6
+  lr: 1e-4
+
+dataset:
+  manifest_csv: data/manifests/all_runs.csv
+  zarr_root:   data/processed/data.zarr
+  patch_size:  [32, 32, 32]
+  window:      16
+  patches_per_run:      64
+  patches_per_run_val:  16
+
+model:
+  name:       unet3d
+  in_ch:      16
+  out_ch:     16
+  features:   32
+
+logging:
+  run_name:  baseline_full
+  logdir:    experiments/baseline_full
