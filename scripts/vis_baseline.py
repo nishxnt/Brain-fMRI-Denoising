@@ -60,7 +60,7 @@ patch = ( torch.from_numpy(crop_np)             # (32,32,32,16)  X,Y,Z,T
 # -----------------------------------------------------------------------------
 # 4) run the network  ----------------------------------------------------------
 # -----------------------------------------------------------------------------
-ckpt  = Path("content/unet_baseline_best.pt")   # already downloaded earlier
+ckpt = Path("models/unet_baseline_best.pt")
 net   = UNet3D(in_ch=16, out_ch=16, features=16).cpu()
 net.load_state_dict(torch.load(ckpt, map_location="cpu"))
 net.eval()
