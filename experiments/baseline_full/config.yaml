@@ -4,7 +4,7 @@ train:
   epochs: 30
   batch_size: 4
   patience: 6
-  lr: 1e-4
+  lr: 0.0001
 
 dataset:
   manifest_csv: data/manifests/all_runs.csv
