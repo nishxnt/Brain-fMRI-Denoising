@@ -37,7 +37,10 @@ if vol_np.ndim == 4 and vol_np.shape[0] < 10:   # T-axis is first  -> move it
     vol_np = np.moveaxis(vol_np, 0, -1)         # (T,X,Y,Z) -> (X,Y,Z,T)
 
 # ----- recompute mask after possible axis move (keeps affine) ----------------
-mask_np = compute_mask(nib.Nifti1Image(vol_np.mean(-1), img.affine))
+mask_np = compute_mask(nib.NiftiImage(vol_np.mean(-1), img.affine))   # (X,Y,Z)
+
+# make mask 4-D so it matches vol_np (X,Y,Z,T)
+mask_np = np.broadcast_to(mask_np[..., None], vol_np.shape)           # (X,Y,Z,T)
 
 # ----- z-score normalisation  -------------------------------------------------
 vol_np = zscore(vol_np, mask_np)                # (X,Y,Z,T)
