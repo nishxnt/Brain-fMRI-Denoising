@@ -1,4 +1,4 @@
-# fMRI Denoising with 3D-CNN-LSTM and U‑Net Benchmark
+# fMRI Denoising with Conv.3D UNet-LSTM and U‑Net Benchmark
 
 ## Overview
 
